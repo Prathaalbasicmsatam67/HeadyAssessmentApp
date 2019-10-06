@@ -27,6 +27,7 @@ versions.picaso="2.71828"
 versions.mockito = "2.8.47"
 versions.mockito_kotlin = "2.1.0"
 versions.roboelectric = "4.1"
+versions.room = '2.1.0'
 
 
 def deps = [:]
@@ -52,6 +53,14 @@ dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$v
 dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
 dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
 deps.dagger = dagger
+
+def room = [:]
+room.runtime = "androidx.room:room-runtime:$versions.room"
+room.compiler = "androidx.room:room-compiler:$versions.room"
+room.rxjava2 = "androidx.room:room-rxjava2:$versions.room"
+room.testing = "androidx.room:room-testing:$versions.room"
+room.ktx = "androidx.room:room-ktx:$versions.room"
+deps.room = room
 
 
 def kotlin = [:]

@@ -2,6 +2,7 @@ package com.pratham.headytest.di
 
 import android.app.Application
 import com.pratham.headytest.app.AssessmentApplication
+import com.pratham.headytest.db.DbModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -16,7 +17,9 @@ import javax.inject.Singleton
         ActivityBindingModule::class,
         NetworkModule::class,
         RxModule::class,
-        ViewModelModule::class
+        AppModule::class,
+        DbModule::class
+
     ]
 )
 interface AppComponent : AndroidInjector<DaggerApplication> {

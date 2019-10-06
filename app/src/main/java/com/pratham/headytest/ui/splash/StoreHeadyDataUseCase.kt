@@ -1,15 +1,16 @@
-package com.pratham.headytest.ui.home
+package com.pratham.headytest.ui.splash
 
 import com.pratham.headytest.app.UseCase
+import com.pratham.headytest.db.repository.HeadyDataRepository
 import com.pratham.headytest.rx.IoThreadScheduler
 import com.pratham.headytest.rx.MainThreadScheduler
 import com.pratham.headytest.rx.SchedulerProvider
-import com.pratham.headytest.ui.home.model.HeadyDataApiResponse
-import com.pratham.headytest.ui.home.model.HeadyDataUiModel
+import com.pratham.headytest.ui.splash.model.HeadyDataApiResponse
+import com.pratham.headytest.ui.splash.model.HeadyDataUiModel
 import io.reactivex.Flowable
 import javax.inject.Inject
 
-class GetAllDataListUseCase @Inject constructor(
+class StoreHeadyDataUseCase @Inject constructor(
     private val repository: HeadyDataRepository,
     @IoThreadScheduler subscribeOnScheduler: SchedulerProvider,
     @MainThreadScheduler observeOnScheduler: SchedulerProvider

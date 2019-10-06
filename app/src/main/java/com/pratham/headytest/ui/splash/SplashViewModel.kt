@@ -1,17 +1,20 @@
-package com.pratham.headytest.ui.home
+package com.pratham.headytest.ui.splash
 
 import androidx.lifecycle.MutableLiveData
 import com.pratham.headytest.app.BaseViewModelImpl
-import com.pratham.headytest.ui.home.model.HeadyDataUiModel
+import com.pratham.headytest.ui.splash.model.HeadyDataUiModel
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(
+class SplashViewModel @Inject constructor(
     private val getAllDataListUseCase: GetAllDataListUseCase,
+    private val validateIsDbDataUseCase: ValidateIsDbDataUseCase,
     compositeDisposable: CompositeDisposable
 ) : BaseViewModelImpl(compositeDisposable) {
 
     val getAllDataLiveData = MutableLiveData<HeadyDataUiModel>()
+
+    val validateDataLiveData = MutableLiveData<Boolean>()
 
     fun getAllDataList() {
         manageActionDisposables(
@@ -26,6 +29,19 @@ class HomeViewModel @Inject constructor(
                 )
         )
 
+    }
+
+    fun validateIsDbEmpty() {
+        manageActionDisposables(
+            validateIsDbDataUseCase.execute("")
+                .subscribe(
+                    {
+                        validateDataLiveData.value = it.isEmpty()
+                    },
+                    { t: Throwable? ->
+                        t?.printStackTrace()
+                    })
+        )
     }
 
 }

@@ -1,4 +1,4 @@
-package com.pratham.headytest.ui.home.model
+package com.pratham.headytest.ui.splash.model
 
 data class Categories(
 
