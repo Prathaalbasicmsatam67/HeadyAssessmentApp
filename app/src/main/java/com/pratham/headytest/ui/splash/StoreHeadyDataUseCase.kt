@@ -5,8 +5,7 @@ import com.pratham.headytest.db.repository.HeadyDataRepository
 import com.pratham.headytest.rx.IoThreadScheduler
 import com.pratham.headytest.rx.MainThreadScheduler
 import com.pratham.headytest.rx.SchedulerProvider
-import com.pratham.headytest.ui.splash.model.HeadyDataApiResponse
-import com.pratham.headytest.ui.splash.model.HeadyDataUiModel
+import com.pratham.headytest.ui.model.HeadyDataUiModel
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -14,14 +13,12 @@ class StoreHeadyDataUseCase @Inject constructor(
     private val repository: HeadyDataRepository,
     @IoThreadScheduler subscribeOnScheduler: SchedulerProvider,
     @MainThreadScheduler observeOnScheduler: SchedulerProvider
-) : UseCase<String, HeadyDataUiModel>(subscribeOnScheduler, observeOnScheduler) {
+) : UseCase<HeadyDataUiModel, Boolean>(subscribeOnScheduler, observeOnScheduler) {
 
 
-    override fun createObservable(request: String): Flowable<HeadyDataUiModel> {
-        return repository.getAllApiData()
-            .map { response: HeadyDataApiResponse ->
-                HeadyDataUiModel(response.categories, response.rankings)
-            }
+    override fun createObservable(request: HeadyDataUiModel): Flowable<Boolean> {
+        return repository.storeHeadyData(request)
+
 
     } //close method
 

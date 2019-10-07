@@ -5,8 +5,8 @@ import com.pratham.headytest.db.repository.HeadyDataRepository
 import com.pratham.headytest.rx.IoThreadScheduler
 import com.pratham.headytest.rx.MainThreadScheduler
 import com.pratham.headytest.rx.SchedulerProvider
-import com.pratham.headytest.ui.splash.model.HeadyDataApiResponse
-import com.pratham.headytest.ui.splash.model.HeadyDataUiModel
+import com.pratham.headytest.ui.model.HeadyDataApiResponse
+import com.pratham.headytest.ui.model.HeadyDataUiModel
 import io.reactivex.Flowable
 import javax.inject.Inject
 

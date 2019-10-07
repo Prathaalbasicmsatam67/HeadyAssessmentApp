@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "product_variant_table",
+    tableName = "tax_details",
     foreignKeys = arrayOf(
         ForeignKey(
             entity = ProductTable::class,
@@ -16,12 +16,11 @@ import androidx.room.PrimaryKey
         )
     )
 )
-data class ProductVariantTable(
+data class TaxTable(
     @PrimaryKey(autoGenerate = true)
     val id: Long?,
-    val color: String,
-    val size: Int,
-    val price: Int,
+    val name: String,
+    val taxPercent: Double,
     @ColumnInfo(index = true)
     val productId: Long
 )

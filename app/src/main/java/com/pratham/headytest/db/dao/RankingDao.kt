@@ -9,7 +9,7 @@ interface RankingDao {
     suspend fun allRankings(): List<RankingTable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(rankingTable: RankingTable)
+    fun insert(rankingTable: RankingTable): Long
 
     @Delete
     suspend fun remove(rankingTable: RankingTable)

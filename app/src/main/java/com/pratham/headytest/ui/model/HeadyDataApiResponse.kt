@@ -1,4 +1,4 @@
-package com.pratham.headytest.ui.splash.model
+package com.pratham.headytest.ui.model
 
 data class HeadyDataApiResponse(
     val categories: List<Categories>,

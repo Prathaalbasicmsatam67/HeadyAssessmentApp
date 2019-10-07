@@ -9,7 +9,7 @@ interface ProductVariantDao {
     suspend fun allProductVariants(): List<ProductVariantTable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(productVariant: ProductVariantTable)
+    fun insert(productVariant: ProductVariantTable): Long
 
     @Delete
     suspend fun remove(productVariant: ProductVariantTable)

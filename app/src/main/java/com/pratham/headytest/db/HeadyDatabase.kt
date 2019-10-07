@@ -11,7 +11,9 @@ import com.pratham.headytest.db.tables.*
         CategoryTable::class,
         ProductVariantTable::class,
         RankingTable::class,
-        SubCategoryTable::class],
+        SubCategoryTable::class,
+        TaxTable::class
+    ],
     version = BuildConfig.DatabaseVersion,
     exportSchema = false
 )
@@ -25,7 +27,11 @@ abstract class HeadyDatabase : RoomDatabase() {
 
     abstract fun rankingDao(): RankingDao
 
+    abstract fun productRankingDao(): ProductRankingDao
+
     abstract fun subcategoryDao(): SubCategoryDao
+
+    abstract fun taxDao(): TaxDao
 
     companion object {
         const val DATABASE_NAME = "headyAssessment.db"

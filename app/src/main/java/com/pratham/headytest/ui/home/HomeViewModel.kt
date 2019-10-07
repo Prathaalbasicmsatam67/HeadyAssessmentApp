@@ -1,8 +1,9 @@
-package com.pratham.headytest.ui.splash
+package com.pratham.headytest.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import com.pratham.headytest.app.BaseViewModelImpl
-import com.pratham.headytest.ui.splash.model.HeadyDataUiModel
+import com.pratham.headytest.ui.model.HeadyDataUiModel
+import com.pratham.headytest.ui.splash.GetAllDataListUseCase
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 

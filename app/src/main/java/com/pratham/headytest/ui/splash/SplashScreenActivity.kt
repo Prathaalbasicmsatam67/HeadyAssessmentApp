@@ -26,6 +26,8 @@ class SplashScreenActivity : BaseView<SplashViewModel>, DaggerAppCompatActivity(
     lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: SplashViewModel
 
+    var singleEvent: Boolean = false
+
 
     override fun getAssociatedViewModel(): SplashViewModel {
         return ViewModelProviders.of(this, viewModelFactory).get(SplashViewModel::class.java)
@@ -81,29 +83,50 @@ class SplashScreenActivity : BaseView<SplashViewModel>, DaggerAppCompatActivity(
         // Observe Live Data callbacks
         viewModel.getAllDataLiveData.observe(this, Observer { data ->
             Log.d("class", "data : " + data.toString())
+            viewModel.storeData(data)
         })
 
         viewModel.validateDataLiveData.observe(this, Observer { isEmpty ->
-            if (isEmpty) {
-                Log.d("SplashScreenActivity", " Is db empty " + isEmpty)
-                // call api and store data in db
-                viewModel.getAllDataList();
-            } else {
-                // call next screen
-                val intent = Intent(this, HomeActivity::class.java)
-                // start your next activity
-                startActivity(intent)
+
+            if (!singleEvent) {
+                // As there is no single event model with
+                // mvvm arch so handling it with variable,
+                // for this to handle we can also go by customization way
+                // as per https://proandroiddev.com/livedata-with-single-events-2395dea972a8
+                singleEvent = true
+                if (isEmpty) {
+
+                    Log.d("SplashScreenActivity", " Is db empty " + isEmpty)
+                    // call api and store data in db
+                    viewModel.getAllDataList()
+                } else {
+                    // call next screen
+                    val intent = Intent(this, HomeActivity::class.java)
+                    // start your next activity
+                    startActivity(intent)
+                    finish()
+                }
             }
 
         })
 
+        viewModel.storeDataLiveData.observe(this, Observer { storedSuccess ->
+            if (storedSuccess) {
+                // call next screen
+                val intent = Intent(this, HomeActivity::class.java)
+                // start your next activity
+                startActivity(intent)
+                finish()
+                Log.d("SplashScreenActivity", "Stored successfully")
+            } else
+                Log.d("SplashScreenActivity", "Stored error")
+        })
 
-    }
-
-    override fun onStart() {
-        super.onStart()
         viewModel.validateIsDbEmpty()
+
+
     }
+
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)

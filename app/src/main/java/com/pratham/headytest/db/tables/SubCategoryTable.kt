@@ -18,7 +18,7 @@ import androidx.room.PrimaryKey
 )
 data class SubCategoryTable(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long?,
     val value: String,
     @ColumnInfo(index = true)
     val categoryId: Long

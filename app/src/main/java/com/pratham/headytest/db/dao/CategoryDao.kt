@@ -9,7 +9,7 @@ interface CategoryDao {
     suspend fun allCategory(): List<CategoryTable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(category: CategoryTable)
+    fun insert(category: CategoryTable): Long
 
     @Delete
     suspend fun remove(category: CategoryTable)

@@ -6,7 +6,7 @@ import com.pratham.headytest.db.tables.ProductTable
 import com.pratham.headytest.rx.IoThreadScheduler
 import com.pratham.headytest.rx.MainThreadScheduler
 import com.pratham.headytest.rx.SchedulerProvider
-import com.pratham.headytest.ui.splash.model.ProductUiModel
+import com.pratham.headytest.ui.model.ProductUiModel
 import io.reactivex.Flowable
 import javax.inject.Inject
 

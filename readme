@@ -30,6 +30,12 @@ value
 
 product_ranking_table
 id
-product_id
+product_server_id
 value
+
+tax_details_table
+id
+name
+taxPercent
+product_id
 

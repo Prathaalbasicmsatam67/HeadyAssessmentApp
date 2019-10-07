@@ -18,8 +18,8 @@ import androidx.room.PrimaryKey
 )
 data class ProductRankingTable(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
-    val ranking_id: Long,
+    val id: Long?,
     @ColumnInfo(index = true)
-    val productId: Long
+    val ranking_id: Long,
+    val productServerId: Int
 )

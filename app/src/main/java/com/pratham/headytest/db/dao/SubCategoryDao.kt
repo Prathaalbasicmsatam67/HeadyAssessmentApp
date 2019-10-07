@@ -9,7 +9,7 @@ interface SubCategoryDao {
     suspend fun allSubCategories(): List<SubCategoryTable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(subCategoryTable: SubCategoryTable)
+    fun insert(subCategoryTable: SubCategoryTable): Long
 
     @Delete
     suspend fun remove(subCategoryTable: SubCategoryTable)

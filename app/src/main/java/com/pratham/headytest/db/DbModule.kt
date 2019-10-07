@@ -53,7 +53,21 @@ object DbModule {
     @JvmStatic
     @Singleton
     @Provides
+    fun provideProductRankingDao(database: HeadyDatabase): ProductRankingDao {
+        return database.productRankingDao()
+    }
+
+    @JvmStatic
+    @Singleton
+    @Provides
     fun provideSubCategoryDao(database: HeadyDatabase): SubCategoryDao {
         return database.subcategoryDao()
+    }
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideTaxDao(database: HeadyDatabase): TaxDao {
+        return database.taxDao()
     }
 }

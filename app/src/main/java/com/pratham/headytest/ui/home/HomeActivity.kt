@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.pratham.headytest.R
 import com.pratham.headytest.app.BaseView
-import com.pratham.headytest.ui.splash.HomeViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -35,6 +34,6 @@ class HomeActivity : BaseView<HomeViewModel>, DaggerAppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.getAllDataList();
+//        viewModel.getAllDataList();
     }
 }

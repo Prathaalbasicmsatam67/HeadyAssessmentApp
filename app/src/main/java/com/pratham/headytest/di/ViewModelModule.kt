@@ -2,7 +2,7 @@ package com.pratham.headytest.di
 
 import androidx.lifecycle.ViewModelProvider
 import com.pratham.headytest.app.BaseViewModel
-import com.pratham.headytest.ui.splash.HomeViewModel
+import com.pratham.headytest.ui.home.HomeViewModel
 import com.pratham.headytest.ui.splash.SplashViewModel
 import dagger.Binds
 import dagger.Module

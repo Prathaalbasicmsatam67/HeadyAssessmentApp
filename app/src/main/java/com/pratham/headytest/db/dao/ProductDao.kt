@@ -10,7 +10,7 @@ interface ProductDao {
     fun allProducts(): Flowable<List<ProductTable>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(product: ProductTable)
+    fun insert(product: ProductTable): Long
 
     @Delete
     suspend fun remove(product: ProductTable)
