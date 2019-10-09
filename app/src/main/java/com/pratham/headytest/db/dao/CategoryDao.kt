@@ -6,7 +6,7 @@ import com.pratham.headytest.db.tables.CategoryTable
 @Dao
 interface CategoryDao {
     @Query("SELECT * FROM category")
-    suspend fun allCategory(): List<CategoryTable>
+    fun allCategory(): List<CategoryTable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(category: CategoryTable): Long

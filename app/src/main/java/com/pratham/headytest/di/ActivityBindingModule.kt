@@ -1,5 +1,6 @@
 package com.pratham.headytest.di
 
+import com.pratham.headytest.ui.categoryfilter.CategorySelectionActivity
 import com.pratham.headytest.ui.home.HomeActivity
 import com.pratham.headytest.ui.splash.SplashScreenActivity
 import dagger.Module
@@ -13,4 +14,7 @@ abstract class ActivityBindingModule {
 
     @ContributesAndroidInjector
     internal abstract fun bindSplashScreenActivity(): SplashScreenActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun bindCategorySelectionActivity(): CategorySelectionActivity
 }

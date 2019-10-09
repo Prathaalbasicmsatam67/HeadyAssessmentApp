@@ -2,24 +2,32 @@ package com.pratham.headytest.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import com.pratham.headytest.app.BaseViewModelImpl
-import com.pratham.headytest.ui.model.HeadyDataUiModel
-import com.pratham.headytest.ui.splash.GetAllDataListUseCase
+import com.pratham.headytest.ui.home.model.RankingUiModel
+import com.pratham.headytest.ui.model.ProductUiModel
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
-    private val getAllDataListUseCase: GetAllDataListUseCase,
+    private val getAllRankingUseCase: GetAllRankingUseCase,
+    private val getAllProductUseCase: GetAllProductsUseCase,
     compositeDisposable: CompositeDisposable
 ) : BaseViewModelImpl(compositeDisposable) {
 
-    val getAllDataLiveData = MutableLiveData<HeadyDataUiModel>()
 
-    fun getAllDataList() {
+    val getAllRanking = MutableLiveData<List<RankingUiModel>>()
+
+    val getAllProducts = MutableLiveData<List<ProductUiModel?>>()
+
+    fun getAllRanking() {
         manageActionDisposables(
-            getAllDataListUseCase.execute("")
+            getAllRankingUseCase.execute("")
                 .subscribe(
                     {
-                        getAllDataLiveData.value = it
+                        val list: MutableList<RankingUiModel> = it.toMutableList()
+                        val obj = RankingUiModel("Select Rank", 0)
+                        list.add(0, obj)
+
+                        getAllRanking.value = list
                     },
                     { t: Throwable? ->
                         t?.printStackTrace()
@@ -28,5 +36,18 @@ class HomeViewModel @Inject constructor(
         )
 
     }
+
+    fun getAllProducts() {
+        manageActionDisposables(
+            getAllProductUseCase.execute("")
+                .subscribe({
+                    getAllProducts.value = it
+                },
+                    { t: Throwable? ->
+                        t?.printStackTrace()
+                    })
+        )
+    }
+
 
 }

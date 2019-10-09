@@ -18,9 +18,12 @@ class ValidateIsDbDataUseCase @Inject constructor(
 
 
     override fun createObservable(request: String): Flowable<List<ProductUiModel>> {
-        return repository.productList().map { data ->
+        return repository.getAllProduct().map { data ->
             data.asSequence().map { tableData: ProductTable ->
-                ProductUiModel(tableData.id, tableData.name, tableData.server_id)
+                ProductUiModel(
+                    tableData.id, tableData.name, tableData.server_id,
+                    null
+                )
             }.toList()
         }
     }

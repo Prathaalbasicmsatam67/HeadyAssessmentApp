@@ -6,7 +6,7 @@ import com.pratham.headytest.db.tables.RankingTable
 @Dao
 interface RankingDao {
     @Query("SELECT * FROM ranking")
-    suspend fun allRankings(): List<RankingTable>
+    fun allRankings(): List<RankingTable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(rankingTable: RankingTable): Long

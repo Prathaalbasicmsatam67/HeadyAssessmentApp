@@ -12,7 +12,8 @@ import com.pratham.headytest.db.tables.*
         ProductVariantTable::class,
         RankingTable::class,
         SubCategoryTable::class,
-        TaxTable::class
+        TaxTable::class,
+        ProductRankingTable::class
     ],
     version = BuildConfig.DatabaseVersion,
     exportSchema = false

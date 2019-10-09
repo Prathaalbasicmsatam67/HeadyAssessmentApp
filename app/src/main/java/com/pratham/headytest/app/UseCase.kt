@@ -5,7 +5,7 @@ import com.pratham.headytest.rx.MainThreadSchedulerProvider
 import com.pratham.headytest.rx.SchedulerProvider
 import io.reactivex.Flowable
 
-abstract class UseCase<REQUEST, RESPONSE> @JvmOverloads constructor(
+open class UseCase<REQUEST, RESPONSE> @JvmOverloads constructor(
     private val subscribeOnScheduler: SchedulerProvider = IoThreadSchedulerProvider(),
     private val observeOnScheduler: SchedulerProvider = MainThreadSchedulerProvider()
 ) {
@@ -16,5 +16,7 @@ abstract class UseCase<REQUEST, RESPONSE> @JvmOverloads constructor(
             .observeOn(observeOnScheduler.provideSchedulerProvider())
     }
 
-    protected abstract fun createObservable(request: REQUEST): Flowable<RESPONSE>
+    open fun createObservable(request: REQUEST): Flowable<RESPONSE> {
+        return Flowable.just(null);
+    }
 }

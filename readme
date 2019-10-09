@@ -24,8 +24,10 @@ name
 
 product_variant_table
 id
-product_id
-value
+color = variantData.color,
+size = variantData.size,
+price = variantData.price,
+productId = insertedProductId
 
 
 product_ranking_table
@@ -38,4 +40,14 @@ id
 name
 taxPercent
 product_id
+
+
+// Get data of product from product list (variant data) table with limit of 50
+
+// After selecting category get data of product which exist with category id
+
+// Product list should contains variant data get it on basis of join query
+
+// On selection of Ranking pass product serverId list of fetched product list to product_ranking table
+// and rankingId
 
