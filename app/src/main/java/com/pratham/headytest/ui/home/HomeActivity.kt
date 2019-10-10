@@ -11,12 +11,14 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pratham.headytest.R
 import com.pratham.headytest.app.BaseView
 import com.pratham.headytest.ui.categoryfilter.CategorySelectionActivity
 import com.pratham.headytest.ui.categoryfilter.model.CategoryUiModel
 import com.pratham.headytest.ui.home.adapter.CustomArrayAdapter
+import com.pratham.headytest.ui.home.adapter.ProductListAdapter
 import com.pratham.headytest.ui.home.model.RankingUiModel
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -31,6 +33,9 @@ class HomeActivity : BaseView<HomeViewModel>, DaggerAppCompatActivity() {
     private lateinit var btnFilter: Button
     private lateinit var spnRanking: Spinner
     private lateinit var recyclerView: RecyclerView
+
+    private lateinit var layoutManager: RecyclerView.LayoutManager
+
 
     companion object {
         val CATEGORY_DATA_CODE = 1000
@@ -51,6 +56,10 @@ class HomeActivity : BaseView<HomeViewModel>, DaggerAppCompatActivity() {
         spnRanking = findViewById(R.id.spnRanking)
         recyclerView = findViewById(R.id.recyclerView)
 
+        layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
+
+
         viewModel = getAssociatedViewModel()
 
         viewModel.getAllRanking.observe(this, Observer { data ->
@@ -63,7 +72,7 @@ class HomeActivity : BaseView<HomeViewModel>, DaggerAppCompatActivity() {
 
             spnRanking.adapter = adapter
 
-            spnRanking?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            spnRanking.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 
                 }
@@ -75,6 +84,8 @@ class HomeActivity : BaseView<HomeViewModel>, DaggerAppCompatActivity() {
                     id: Long
                 ) {
                     selectedRanking = data[position]
+                    if (selectedRanking.id != 0)
+                        viewModel.getAllProductForRanking(selectedRanking.id)
 
                 }
             }
@@ -83,8 +94,19 @@ class HomeActivity : BaseView<HomeViewModel>, DaggerAppCompatActivity() {
 
         viewModel.getAllProducts.observe(this, Observer {
             Log.d("class", "productList : " + it.toString())
+            recyclerView.adapter = ProductListAdapter(this, it)
+
         })
 
+        viewModel.getAllProductsForCategoryLiveData.observe(this, Observer {
+            Log.d("class", "productList For Category: " + it.toString())
+            recyclerView.adapter = ProductListAdapter(this, it)
+        })
+
+        viewModel.getAllProductsForRankingLiveData.observe(this, Observer {
+            Log.d("class", "productList For Ranking: " + it.toString())
+            recyclerView.adapter = ProductListAdapter(this, it)
+        })
 
 
         btnFilter.setOnClickListener {
@@ -110,42 +132,19 @@ class HomeActivity : BaseView<HomeViewModel>, DaggerAppCompatActivity() {
                 selectedCategory = data.getParcelableExtra(CATEGORY_DATA)
                 Toast.makeText(
                     this,
-                    "Selected category : " + selectedCategory?.categoryName,
+                    "Selected category : " + selectedCategory.categoryName,
                     Toast.LENGTH_LONG
                 )
                     .show()
+
+
+                viewModel.getAllProductForCategory(selectedCategory)
             }
         }
 
     }
 
 
-//    private boolean loading = true;
-//    int pastVisiblesItems, visibleItemCount, totalItemCount;
-//
-//    mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
-//    {
-//        @Override
-//        public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-//        {
-//            if(dy > 0) //check for scroll down
-//            {
-//                visibleItemCount = mLayoutManager.getChildCount();
-//                totalItemCount = mLayoutManager.getItemCount();
-//                pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
-//
-//                if (loading)
-//                {
-//                    if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
-//                    {
-//                        loading = false;
-//                        Log.v("...", "Last Item Wow !");
-//                        //Do pagination.. i.e. fetch new data
-//                    }
-//                }
-//            }
-//        }
-//    });
 
 
 }

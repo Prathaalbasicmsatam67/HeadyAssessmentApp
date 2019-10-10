@@ -12,6 +12,15 @@ class ProductRepository @Inject constructor(private val productDao: ProductDao) 
         return productDao.getAllProductWithVariants()
     }
 
+
+    fun getAllProductListWithCategory(categoryId: Long?): Flowable<List<JoinProductVariantTable>> {
+        return productDao.getAllProductWithVariantsForCategory(categoryId)
+    }
+
+    fun getAllProductListWithRanking(rankingId: Int?): Flowable<List<JoinProductVariantTable>> {
+        return productDao.getAllProductWithVariantsForRanking(rankingId)
+    }
+
     fun getAllProduct(): Flowable<List<ProductTable>> {
         return productDao.allProducts()
     }

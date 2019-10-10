@@ -26,6 +26,40 @@ interface ProductDao {
     )
     fun getAllProductWithVariants(): Flowable<List<JoinProductVariantTable>>
 
+
+    @Query(
+        "SELECT\n" +
+                "                `product`.`id` as `productId`,\n" +
+                "                `name` as `productName`,\n" +
+                "                `server_id` as `productServerId`,\n" +
+                "                 variant.`id` as `variantId`,\n" +
+                "                `color` as `variantColor`,\n" +
+                "                `size` as `variantSize`,\n" +
+                "                `price` as `variantPrice`\n" +
+                "                  FROM `product` as product \n" +
+                "                  LEFT JOIN product_variant_table as variant\n" +
+                "                  ON variant.productId = product.id where product.categoryId =:categoryId"
+    )
+    fun getAllProductWithVariantsForCategory(categoryId: Long?): Flowable<List<JoinProductVariantTable>>
+
+
+    @Query(
+        "SELECT\n" +
+                "                `product`.`id` as `productId`,\n" +
+                "                `name` as `productName`,\n" +
+                "                `server_id` as `productServerId`,\n" +
+                "                 variant.`id` as `variantId`,\n" +
+                "                `color` as `variantColor`,\n" +
+                "                `size` as `variantSize`,\n" +
+                "                `price` as `variantPrice`\n" +
+                "                  FROM `product` as product\n" +
+                "                  LEFT JOIN product_variant_table as variant\n" +
+                "                  ON variant.productId = product.id where product.server_id in " +
+                "(select productServerId from product_ranking_table where ranking_id=:rankingId)"
+    )
+    fun getAllProductWithVariantsForRanking(rankingId: Int?): Flowable<List<JoinProductVariantTable>>
+
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(product: ProductTable): Long
 

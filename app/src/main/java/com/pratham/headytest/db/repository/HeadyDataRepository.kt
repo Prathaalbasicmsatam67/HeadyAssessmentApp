@@ -37,11 +37,11 @@ class HeadyDataRepository @Inject constructor(
                 server_id = category.id
             )
 
-            val insertedId = categoryDao.insert(categoryData)
+            val insertedCategoryId = categoryDao.insert(categoryData)
 
             Log.d(
                 "HeadyDataRepository",
-                "Inserted Cat Id : " + insertedId
+                "Inserted Cat Id : " + insertedCategoryId
             )
 
             /*
@@ -54,7 +54,7 @@ class HeadyDataRepository @Inject constructor(
                     val subCatTableRow = SubCategoryTable(
                         id = null,
                         value = subCatData,
-                        categoryId = insertedId
+                        categoryId = insertedCategoryId
                     )
 
                     subCategoryDao.insert(subCatTableRow)
@@ -71,7 +71,8 @@ class HeadyDataRepository @Inject constructor(
                     val productRow = ProductTable(
                         id = null,
                         name = productData.name,
-                        server_id = productData.id
+                        server_id = productData.id,
+                        categoryId = insertedCategoryId
                     )
 
                     val insertedProductId = productDao.insert(productRow)

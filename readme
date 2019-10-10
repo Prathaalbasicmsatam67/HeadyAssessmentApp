@@ -20,6 +20,7 @@ product_table
 id
 server_id
 name
+categoryId
 
 
 product_variant_table
@@ -46,8 +47,46 @@ product_id
 
 // After selecting category get data of product which exist with category id
 
+SELECT
+                `product`.`id` as `productId`,
+                `name` as `productName`,
+                `server_id` as `productServerId`,
+                 variant.`id` as `variantId`,
+                `color` as `variantColor`,
+                `size` as `variantSize`,
+                `price` as `variantPrice`
+                  FROM `product` as product
+                  LEFT JOIN product_variant_table as variant
+                  ON variant.productId = product.id where product.categoryId =1;
+
 // Product list should contains variant data get it on basis of join query
+
+SELECT
+                `product`.`id` as `productId`,
+                `name` as `productName`,
+                `server_id` as `productServerId`,
+                 variant.`id` as `variantId`,
+                `color` as `variantColor`,
+                `size` as `variantSize`,
+                `price` as `variantPrice`
+                  FROM `product` as product
+                  LEFT JOIN product_variant_table as variant
+                  ON variant.productId = product.id where product.categoryId =1;
 
 // On selection of Ranking pass product serverId list of fetched product list to product_ranking table
 // and rankingId
+
+SELECT
+                `product`.`id` as `productId`,
+                `name` as `productName`,
+                `server_id` as `productServerId`,
+                 variant.`id` as `variantId`,
+                `color` as `variantColor`,
+                `size` as `variantSize`,
+                `price` as `variantPrice`
+                  FROM `product` as product
+                  LEFT JOIN product_variant_table as variant
+                  ON variant.productId = product.id where product.server_id in (select productServerId from product_ranking_table where ranking_id=2);
+
+
 

@@ -18,5 +18,6 @@ data class ProductTable(
     @PrimaryKey(autoGenerate = true)
     val id: Long?,
     val name: String,
-    val server_id: Int
+    val server_id: Int,
+    val categoryId: Long
 )
