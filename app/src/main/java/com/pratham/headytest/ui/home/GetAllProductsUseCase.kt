@@ -15,18 +15,18 @@ class GetAllProductsUseCase @Inject constructor(
     private val repository: ProductRepository,
     @IoThreadScheduler subscribeOnScheduler: SchedulerProvider,
     @MainThreadScheduler observeOnScheduler: SchedulerProvider
-) : UseCase<String, List<ProductUiModel?>>(subscribeOnScheduler, observeOnScheduler) {
+) : UseCase<String, HashMap<Long, ProductUiModel?>>(subscribeOnScheduler, observeOnScheduler) {
 
 
-    override fun createObservable(request: String): Flowable<List<ProductUiModel?>> {
+    override fun createObservable(request: String): Flowable<HashMap<Long, ProductUiModel?>> {
         val hashmap = HashMap<Long, ProductUiModel?>()
 
-        repository.getAllProductList()
+        return repository.getAllProductList()
             .map { t ->
                 t.map { response: JoinProductVariantTable ->
 
                     if (hashmap.get(response?.productId) == null) {
-                        val variantList = mutableListOf<Variants>()
+                        val variantList = ArrayList<Variants>()
                         val variant = Variants(
                             response.variantId,
                             response.variantColor,
@@ -41,7 +41,7 @@ class GetAllProductsUseCase @Inject constructor(
                             response.productServerId,
                             variantList
                         )
-                        val uiModel = hashmap.put(response.productId, productUiModel)
+                        hashmap.put(response.productId, productUiModel)
 
                     } else {
                         val productUiModel = hashmap.get(response.productId)
@@ -52,22 +52,15 @@ class GetAllProductsUseCase @Inject constructor(
                             response.variantSize,
                             response.variantPrice
                         )
-                        productUiModel?.variants?.toMutableList()?.add(variant)
+                        productUiModel?.variants?.add(variant)
 
-                        val uiModel = hashmap.put(response.productId, productUiModel)
+                        hashmap.put(response.productId, productUiModel)
                     }
 
                 }
-
+                hashmap
             }
 
-        val listOfProductUiModel = mutableListOf<ProductUiModel?>()
-        hashmap.toList().forEach { data ->
-            listOfProductUiModel.add(data.second)
-
-        }
-
-        return Flowable.just(listOfProductUiModel.toList());
     } //close method
 
 }

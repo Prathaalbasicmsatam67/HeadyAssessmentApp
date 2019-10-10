@@ -41,7 +41,13 @@ class HomeViewModel @Inject constructor(
         manageActionDisposables(
             getAllProductUseCase.execute("")
                 .subscribe({
-                    getAllProducts.value = it
+
+                    val listOfProductUiModel = mutableListOf<ProductUiModel?>()
+                    it.values.toList().forEach { data ->
+                        listOfProductUiModel.add(data)
+                    }
+
+                    getAllProducts.value = listOfProductUiModel
                 },
                     { t: Throwable? ->
                         t?.printStackTrace()
